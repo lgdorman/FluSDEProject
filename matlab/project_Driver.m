@@ -1,7 +1,10 @@
-function [outputArg1,outputArg2] = project_Driver(inputArg1,inputArg2)
-%PROJECT_DRIVER Summary of this function goes here
-%   Detailed explanation goes here
-outputArg1 = inputArg1;
-outputArg2 = inputArg2;
-end
 
+close all
+clear all
+
+run('..\add_to_path.m');
+
+%%
+csvFile = '..\influenza-surveillance-data\public-health-laboratory-influenza-respiratory-virus-surveillance-data-by-region-and-influenza-season.csv';
+
+loadFluData(csvFile);
