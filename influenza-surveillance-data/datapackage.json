@@ -1,0 +1,284 @@
+{
+  "accrual_periodicity": "annually",
+  "additional_limitations": "",
+  "citation": "Immunization Branch, California Department of Public Health. 2019. Flu-ILI-byRegion-FluSeason.csv\r\nImmunization Branch, California Department of Public Health. 2019. Flu-ClinicalLab-byRegion-FluSeason.csv\r\nImmunization Branch, California Department of Public Health. 2019. Flu-PublicHealthLab-byRegion-FluSeason.csv\r\n",
+  "contact_email": "opendata@cdph.ca.gov",
+  "data_collection_tool": "",
+  "data_license": "Terms of Use",
+  "de_identification_method": "",
+  "description": "This dataset contains the following files for California influenza surveillance data: 1) Outpatient Influenza-like Illness Surveillance Data by Region and Influenza Season from volunteer sentinel providers; 2) Clinical Sentinel Laboratory Influenza and Other Respiratory Virus Surveillance Data by Region and Influenza Season from volunteer sentinel laboratories; and 3) Public Health Laboratory Influenza Respiratory Virus Surveillance Data by Region and Influenza Season from California public health laboratories.\r\nThe Immunization Branch at the California Department of Public Health (CDPH) collects, compiles and analyzes information on influenza activity year-round in California and produces a weekly influenza surveillance report during October through May. The California influenza surveillance system is a collaborative effort between CDPH and its many partners at local health departments, public health and clinical laboratories, vital statistics offices, healthcare providers, clinics, emergency departments, and the Centers for Disease Control and Prevention (CDC). California data are also included in the CDC weekly influenza surveillance report, FluView, and help contribute to the national picture of Influenza activity in the United States. The information collected allows CDPH and CDC to: 1) find out when and where influenza activity is occurring; 2) track influenza-related illness; 3) determine what influenza viruses are circulating; 4) detect changes in influenza viruses; and 5) measure the impact influenza is having on hospitalizations and deaths.\r\n",
+  "geo_coverage": "California",
+  "geographic_granularity": "regional",
+  "keywords": [
+    "HMPV",
+    "ILINet",
+    "RSV",
+    "VPD",
+    "adenovirus",
+    "coronavirus",
+    "enterovirus",
+    "flu",
+    "flu season",
+    "human metapneumovirus",
+    "influenza",
+    "influenza A subtype",
+    "influenza B lineage type",
+    "influenza season",
+    "influenza type",
+    "influenza-like illness",
+    "laboratory surveillance",
+    "parainfluenza virus",
+    "respiratory syncytial virus",
+    "rhinovirus"
+  ],
+  "limitations": "Limitations",
+  "name": "influenza-surveillance",
+  "program_web_page": "https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/Immunization/Influenza.aspx ",
+  "related_resources": "",
+  "resources": [
+    {
+      "description": "These data contain outpatient influenza-like illness surveillance data from volunteer sentinel providers by region and influenza season.",
+      "format": "CSV",
+      "name": "outpatient-influenza-like-illness-surveillance-data-by-region-and-influenza-season",
+      "path": "outpatient-influenza-like-illness-surveillance-data-by-region-and-influenza-season.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "season",
+            "type": "string"
+          },
+          {
+            "name": "date_code",
+            "type": "string"
+          },
+          {
+            "name": "weekending",
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "type": "string"
+          },
+          {
+            "name": "Total_ILI",
+            "type": "string"
+          },
+          {
+            "name": "Total_Patients_Seen",
+            "type": "string"
+          },
+          {
+            "name": "Percent_ILI",
+            "type": "string"
+          },
+          {
+            "name": "Number_Providers_Reporting",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/fc544658-35c5-4be0-af20-fc703bc57c13/resource/e127a67b-cbf2-4ad5-ac82-9e5e2d12d3a6/download/flu-ili-byregion-fluseason.csv",
+          "title": "Outpatient Influenza-like Illness Surveillance Data by Region and Influenza Season"
+        }
+      ],
+      "title": "Outpatient Influenza-like Illness Surveillance Data by Region and Influenza Season"
+    },
+    {
+      "format": "XLSX",
+      "name": "data-dictionary-outpatient-influenza-like-illness",
+      "path": "data-dictionary-outpatient-influenza-like-illness.xlsx",
+      "schema": {
+        "fields": [
+          {
+            "name": "Field Title",
+            "type": "string"
+          },
+          {
+            "name": "Field Name",
+            "type": "string"
+          },
+          {
+            "name": "Data type",
+            "type": "string"
+          },
+          {
+            "name": "Description",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/fc544658-35c5-4be0-af20-fc703bc57c13/resource/be3e8fce-d47d-4bb8-8cb2-830f68209be5/download/datadictionary-outpatient-influenza-like-illness.xlsx",
+          "title": "Data Dictionary-Outpatient Influenza-like Illness"
+        }
+      ],
+      "title": "Data Dictionary-Outpatient Influenza-like Illness"
+    },
+    {
+      "description": "These data contain laboratory surveillance data for influenza and other respiratory viruses from volunteer sentinel clinical laboratories by region and influenza season.\r\n\r\n",
+      "format": "CSV",
+      "name": "clinical-sentinel-laboratory-influenza-and-other-respiratory-virus-surveillance",
+      "path": "clinical-sentinel-laboratory-influenza-and-other-respiratory-virus-surveillance.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "season",
+            "type": "string"
+          },
+          {
+            "name": "date_code",
+            "type": "string"
+          },
+          {
+            "name": "weekending",
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "type": "string"
+          },
+          {
+            "name": "Respiratory_Virus",
+            "type": "string"
+          },
+          {
+            "name": "Number_Positive",
+            "type": "string"
+          },
+          {
+            "name": "Specimens_Tested",
+            "type": "string"
+          },
+          {
+            "name": "Percent_Positive",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/fc544658-35c5-4be0-af20-fc703bc57c13/resource/5b7cef59-c9e4-49eb-b97a-add09ab11be6/download/flu-clinicallab-byregion-fluseason.csv",
+          "title": "Clinical Sentinel Laboratory Influenza and Other Respiratory Virus Surveillance"
+        }
+      ],
+      "title": "Clinical Sentinel Laboratory Influenza and Other Respiratory Virus Surveillance"
+    },
+    {
+      "format": "XLSX",
+      "name": "data-dictionary-clinical-sentinel-laboratory-influenza",
+      "path": "data-dictionary-clinical-sentinel-laboratory-influenza.xlsx",
+      "schema": {
+        "fields": [
+          {
+            "name": "Field Title",
+            "type": "string"
+          },
+          {
+            "name": "Field Name",
+            "type": "string"
+          },
+          {
+            "name": "Data type",
+            "type": "string"
+          },
+          {
+            "name": "Description",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/fc544658-35c5-4be0-af20-fc703bc57c13/resource/becac4f2-e12f-498b-89e5-a5c1702f1b7a/download/data-dictoionary-clinical-laboratory-results-by-region.xlsx",
+          "title": "Data Dictionary-Clinical Sentinel Laboratory Influenza"
+        }
+      ],
+      "title": "Data Dictionary-Clinical Sentinel Laboratory Influenza"
+    },
+    {
+      "description": "These data contain laboratory surveillance data for influenza virus types, subtypes, and lineage types from public health laboratories in California by region and influenza season.\r\n\r\n",
+      "format": "CSV",
+      "name": "public-health-laboratory-influenza-respiratory-virus-surveillance-data-by-region-and-influenza-season",
+      "path": "public-health-laboratory-influenza-respiratory-virus-surveillance-data-by-region-and-influenza-season.csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "season",
+            "type": "string"
+          },
+          {
+            "name": "date_code",
+            "type": "string"
+          },
+          {
+            "name": "weekending",
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "type": "string"
+          },
+          {
+            "name": "Influenza_Category",
+            "type": "string"
+          },
+          {
+            "name": "Count",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/fc544658-35c5-4be0-af20-fc703bc57c13/resource/063faf93-0572-4fdc-84cf-263f110dc09a/download/flu-publichealthlab-byregion-fluseason.csv",
+          "title": "Public Health Laboratory Influenza Respiratory Virus Surveillance Data by Region and Influenza Season"
+        }
+      ],
+      "title": "Public Health Laboratory Influenza Respiratory Virus Surveillance Data by Region and Influenza Season"
+    },
+    {
+      "format": "XLSX",
+      "name": "data-dictionary-public-health-laboratory-influenza-respiratory-virus-surveillance",
+      "path": "data-dictionary-public-health-laboratory-influenza-respiratory-virus-surveillance.xlsx",
+      "schema": {
+        "fields": [
+          {
+            "name": "Field Title",
+            "type": "string"
+          },
+          {
+            "name": "Field Name",
+            "type": "string"
+          },
+          {
+            "name": "Data type",
+            "type": "string"
+          },
+          {
+            "name": "Description",
+            "type": "string"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "path": "https://data.chhs.ca.gov/dataset/fc544658-35c5-4be0-af20-fc703bc57c13/resource/83776194-ad94-43fd-8929-b3be1fdc3a3c/download/data_dictionary-public_health_laboratory_surveillance.xlsx",
+          "title": "Data Dictionary-Public Health Laboratory Influenza Respiratory Virus Surveillance"
+        }
+      ],
+      "title": "Data Dictionary-Public Health Laboratory Influenza Respiratory Virus Surveillance"
+    }
+  ],
+  "secondary_sources": "",
+  "sources": [
+    {
+      "name": "California Department of Public Health/Center for Infectious Disease/Division of Communicable Disease Control/Immunization Branch/Vaccine Preventable Diseases Epidemiology Section",
+      "web": "https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/Immunization/Influenza.aspx"
+    }
+  ],
+  "temporal_coverage": "Outpatient Influenza-like Illness: 2001-2002 through 2017-2018 influenza seasons. \r\nClinical Sentinel Laboratory and Public Health Laboratory: 2009-2010 through 2017-2018 influenza seasons\r\n",
+  "title": "Influenza Surveillance"
+}
