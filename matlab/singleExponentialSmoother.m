@@ -4,9 +4,9 @@ function smoothData = singleExponentialSmoother(data)
 
     alpha = 1;
     n = length(data);
-    smoothData = zeros(1,n+1);
+    smoothData = zeros(n,1);
     smoothData(2) = data(1);
-    for i = 3:n+1
+    for i = 3:n
         smoothData(i) = alpha*data(i-1) + (1-alpha)*smoothData(i-1);
     end
 end
