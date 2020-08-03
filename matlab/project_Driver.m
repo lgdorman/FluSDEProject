@@ -11,6 +11,7 @@ csvFile = '..\influenza-surveillance-data\public-health-laboratory-influenza-res
 
 % set last date to use in training set
 endDate = datetime(2017, 9, 30); 
+
 %% BREAK OUT TRAINING DATA NEXT
 
 
@@ -29,9 +30,8 @@ sesRes = sesData - fluTotals; % is this the right order?
 y = fluTotals;
 % y: Time series (*)
 
-P = [0 52 4 1];
+P = [0 52 4]; % yearly and monthly
 
-% P = [0 12./(1:3:12)]; % need to figure this part out, start with an example
 % P: Periodic components; set P(1)=0 to include a trend (*)
 
 IRWharm = [1 0]; % 
@@ -47,7 +47,9 @@ alpha = [0.95 1];
 
 % leave other model parameters as default to start
 
+P0 = 100; % specifying this value resolves some fitting issues at the start of the time span
 % P0: Initial P matrix (1e6)
+
 % x0: Initial state vector (0)
 % sm: Smoothing on (1-default) or off (0-saves memory)
 % ALG: Smoothing algorithm: P (0) or Q (1-default)
@@ -59,18 +61,21 @@ alpha = [0.95 1];
 
 %% call dhr routine
 [fit,fitse,tr,trse,comp,e,amp,phs,ts,tsse,y0,dhrse,Xhat,Phat,ers,ykk1]...
-    = dhr(y,P,IRWharm,NVR,alpha, 'smooth', 1); %,P0,x0,smooth,ALG,Int,IntD,iout,pinv);
-
-% note: enabling smoothing causes a decent initial point for the DHR data
+    = dhr(y,P,IRWharm,NVR,alpha, P0); %,x0,smooth,ALG,Int,IntD,iout,pinv);
 
 %% comparison of fit errors between dhr and naive model
 close all
 
-figure; plot(fluDates, fit, 'b');
+figure; plot(fluDates, fit, 'b'); grid on;
 hold on; plot(fluDates, fluTotals,'r');
 plot(fluDates, sesData, 'g'); legend('DHR', 'Raw Data', 'Naive')
 
 figure; plot(fluDates, fit-fluTotals, fluDates, sesRes);ylim([-500 500])
-legend('DHR Residuals', 'Naive Residuals'); 
+legend('DHR Residuals', 'Naive Residuals'); grid on;
 
+% current deficiencies with DHR:
+% gives negative values during off-season (is there a transformation that
+% could fix this?)
+% consistently underestimates season peak, although ratio between seasons
+% looks decent
 
