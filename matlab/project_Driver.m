@@ -9,6 +9,11 @@ csvFile = '..\influenza-surveillance-data\public-health-laboratory-influenza-res
 
 [fluDates, fluTotals] = loadFluData(csvFile);
 
+% set last date to use in training set
+endDate = datetime(2017, 9, 30); 
+%% BREAK OUT TRAINING DATA NEXT
+
+
 %% naive fit of data (persistence model)
 
 sesData = singleExponentialSmoother(fluTotals);
@@ -24,10 +29,12 @@ sesRes = sesData - fluTotals; % is this the right order?
 y = fluTotals;
 % y: Time series (*)
 
-P = [0 12./(1:6)]; % need to figure this part out, start with an example
+P = [0 52 4 1];
+
+% P = [0 12./(1:3:12)]; % need to figure this part out, start with an example
 % P: Periodic components; set P(1)=0 to include a trend (*)
 
-IRWharm = [1 0]; % use both model types , 
+IRWharm = [1 0]; % 
 
 % TVP: Model type for each TVP (0-RW/AR(1), 1-IRW/SRW, 2-Trigonommetric) (0)   
 %        (for LLT use RW and IRW trends simultaneously)
@@ -52,6 +59,18 @@ alpha = [0.95 1];
 
 %% call dhr routine
 [fit,fitse,tr,trse,comp,e,amp,phs,ts,tsse,y0,dhrse,Xhat,Phat,ers,ykk1]...
-    = dhr(y,P,IRWharm,NVR,alpha); %,P0,x0,smooth,ALG,Int,IntD,iout,pinv);
+    = dhr(y,P,IRWharm,NVR,alpha, 'smooth', 1); %,P0,x0,smooth,ALG,Int,IntD,iout,pinv);
+
+% note: enabling smoothing causes a decent initial point for the DHR data
 
 %% comparison of fit errors between dhr and naive model
+close all
+
+figure; plot(fluDates, fit, 'b');
+hold on; plot(fluDates, fluTotals,'r');
+plot(fluDates, sesData, 'g'); legend('DHR', 'Raw Data', 'Naive')
+
+figure; plot(fluDates, fit-fluTotals, fluDates, sesRes);ylim([-500 500])
+legend('DHR Residuals', 'Naive Residuals'); 
+
+
