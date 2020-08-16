@@ -19,8 +19,12 @@ trainingData = fluTotals(fluDates <= endDate);
 
 sesData = singleExponentialSmoother(trainingData, length(fluTotals));
 
-sesRes = sesData - fluTotals; % is this the right order?
+sesRes = sesData - fluTotals;
 
+%% seasonal naive (repeat previous season)
+
+seasonalData = seasonalNaive(trainingData, length(fluTotals));
+seasonalRes = seasonalData - fluTotals;
 
 %% dhr() from CAPTAIN toolbox
 
@@ -73,16 +77,18 @@ close all
 figure; plot(fluDates, fluTotals,'r'); hold on; 
 plot(fluDates, fit, 'b'); grid on;
 plot(fluDates, sesData, 'k'); 
+plot(fluDates, seasonalData, 'm')
 xline(endDate, 'k', 'End of Training Data', 'LineWidth', 2, 'LabelHorizontalAlignment', 'left');
-legend('Raw Data', 'DHR', 'Naive', 'Location', 'NorthWest')
+legend('Raw Data', 'DHR', 'Naive', 'Seasonal Naive', 'Location', 'NorthWest')
 set(gca, 'FontWeight', 'Bold', 'FontSize', 12);
 xlabel('Date'); ylabel('Total Flu Cases in California')
 
 
 figure; plot(fluDates, fit-fluTotals, 'b');
 hold on; plot(fluDates, sesRes, 'r');
+plot(fluDates, seasonalRes, 'm');
 xl = xline(endDate, 'k', 'End of Training Data', 'LineWidth', 2, 'LabelHorizontalAlignment', 'left');
-legend('DHR Residuals', 'Naive Residuals', 'Location', 'NorthWest');
+legend('DHR Residuals', 'Naive Residuals', 'Seasonal Naive', 'Location', 'NorthWest');
 grid on; set(gca, 'FontWeight', 'Bold', 'FontSize', 12);
 xlabel('Date'); ylabel('Residuals')
 
@@ -94,6 +100,7 @@ daysPast = datenum(fluDates(fluDates>endDate) - endDate);
 figure;
 plot(daysPast, fitRes(fluDates>endDate), 'b'); hold on;
 plot(daysPast, sesRes(fluDates>endDate), 'r');
+plot(daysPast, seasonalRes(fluDates>endDate), 'm');
 legend('DHR Residuals', 'Naive Residuals', 'Location', 'southeast');
 grid on; xlim([0 365])
 set(gca, 'FontWeight', 'Bold', 'FontSize', 12);
