@@ -25,7 +25,7 @@ function [fluDates, fluTotals] = loadFluData(csvFile)
 
 end
 
-% table this for now, may return to it later
+% tabling this for now, may return to it later
 
 % for a given week return the total, number tested, and positive test
     % ratio

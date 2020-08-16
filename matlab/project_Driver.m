@@ -13,13 +13,14 @@ csvFile = '..\influenza-surveillance-data\public-health-laboratory-influenza-res
 endDate = datetime(2017, 9, 30); 
 
 %% BREAK OUT TRAINING DATA NEXT
-
+trainingData = fluTotals(fluDates <= endDate);
 
 %% naive fit of data (persistence model)
 
-sesData = singleExponentialSmoother(fluTotals);
+sesData = singleExponentialSmoother(trainingData, length(fluTotals));
 
 sesRes = sesData - fluTotals; % is this the right order?
+
 
 %% dhr() from CAPTAIN toolbox
 
@@ -27,10 +28,10 @@ sesRes = sesData - fluTotals; % is this the right order?
 
 % determine which inputs to use and set values
 
-y = fluTotals;
+y = [trainingData; nan(53, 1)];
 % y: Time series (*)
 
-P = [0 52 4]; % yearly and monthly
+P = [0 52 16 12 8 4 1 (1/7)]; % yearly, 1-4 months, weekly and daily
 
 % P: Periodic components; set P(1)=0 to include a trend (*)
 
@@ -63,19 +64,38 @@ P0 = 100; % specifying this value resolves some fitting issues at the start of t
 [fit,fitse,tr,trse,comp,e,amp,phs,ts,tsse,y0,dhrse,Xhat,Phat,ers,ykk1]...
     = dhr(y,P,IRWharm,NVR,alpha, P0); %,x0,smooth,ALG,Int,IntD,iout,pinv);
 
+%%
+fitRes = fit-fluTotals;
+
 %% comparison of fit errors between dhr and naive model
 close all
 
-figure; plot(fluDates, fit, 'b'); grid on;
-hold on; plot(fluDates, fluTotals,'r');
-plot(fluDates, sesData, 'g'); legend('DHR', 'Raw Data', 'Naive')
+figure; plot(fluDates, fluTotals,'r'); hold on; 
+plot(fluDates, fit, 'b'); grid on;
+plot(fluDates, sesData, 'k'); 
+xline(endDate, 'k', 'End of Training Data', 'LineWidth', 2, 'LabelHorizontalAlignment', 'left');
+legend('Raw Data', 'DHR', 'Naive', 'Location', 'NorthWest')
 
-figure; plot(fluDates, fit-fluTotals, fluDates, sesRes);ylim([-500 500])
-legend('DHR Residuals', 'Naive Residuals'); grid on;
+
+figure; plot(fluDates, fit-fluTotals, 'b'); ylim([-500 500])
+hold on; plot(fluDates, sesRes, 'r');
+xl = xline(endDate, 'k', 'End of Training Data', 'LineWidth', 2, 'LabelHorizontalAlignment', 'left');
+legend('DHR Residuals', 'Naive Residuals', 'Location', 'NorthWest');
+grid on;
 
 % current deficiencies with DHR:
 % gives negative values during off-season (is there a transformation that
 % could fix this?)
 % consistently underestimates season peak, although ratio between seasons
 % looks decent
+
+% performance during extrapolation
+daysPast = datenum(fluDates(fluDates>endDate) - endDate);
+
+figure;
+plot(daysPast, fitRes(fluDates>endDate), 'b'); hold on;
+plot(daysPast, sesRes(fluDates>endDate), 'r');
+legend('DHR Residuals', 'Naive Residuals', 'Location', 'southeast');
+grid on; xlim([0 365])
+
 
