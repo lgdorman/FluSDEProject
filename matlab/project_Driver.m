@@ -75,19 +75,18 @@ plot(fluDates, fit, 'b'); grid on;
 plot(fluDates, sesData, 'k'); 
 xline(endDate, 'k', 'End of Training Data', 'LineWidth', 2, 'LabelHorizontalAlignment', 'left');
 legend('Raw Data', 'DHR', 'Naive', 'Location', 'NorthWest')
+set(gca, 'FontWeight', 'Bold', 'FontSize', 12);
+xlabel('Date'); ylabel('Total Flu Cases in California')
 
 
-figure; plot(fluDates, fit-fluTotals, 'b'); ylim([-500 500])
+figure; plot(fluDates, fit-fluTotals, 'b');
 hold on; plot(fluDates, sesRes, 'r');
 xl = xline(endDate, 'k', 'End of Training Data', 'LineWidth', 2, 'LabelHorizontalAlignment', 'left');
 legend('DHR Residuals', 'Naive Residuals', 'Location', 'NorthWest');
-grid on;
+grid on; set(gca, 'FontWeight', 'Bold', 'FontSize', 12);
+xlabel('Date'); ylabel('Residuals')
 
-% current deficiencies with DHR:
-% gives negative values during off-season (is there a transformation that
-% could fix this?)
-% consistently underestimates season peak, although ratio between seasons
-% looks decent
+
 
 % performance during extrapolation
 daysPast = datenum(fluDates(fluDates>endDate) - endDate);
@@ -97,5 +96,8 @@ plot(daysPast, fitRes(fluDates>endDate), 'b'); hold on;
 plot(daysPast, sesRes(fluDates>endDate), 'r');
 legend('DHR Residuals', 'Naive Residuals', 'Location', 'southeast');
 grid on; xlim([0 365])
+set(gca, 'FontWeight', 'Bold', 'FontSize', 12);
+xlabel({'Days Since Start of Extrapolation'; '(1 October 2018)'}); ylabel('Residuals')
+
 
 
