@@ -69,7 +69,7 @@ P0 = 100; % specifying this value resolves some fitting issues at the start of t
     = dhr(y,P,IRWharm,NVR,alpha, P0); %,x0,smooth,ALG,Int,IntD,iout,pinv);
 
 %%
-fitRes = fit-fluTotals;
+dhrRes = fit-fluTotals;
 
 %% comparison of fit errors between dhr and naive model
 close all
@@ -84,7 +84,7 @@ set(gca, 'FontWeight', 'Bold', 'FontSize', 12);
 xlabel('Date'); ylabel('Total Flu Cases in California')
 
 
-figure; plot(fluDates, fit-fluTotals, 'b');
+figure; plot(fluDates, dhrRes, 'b');
 hold on; plot(fluDates, sesRes, 'r');
 plot(fluDates, seasonalRes, 'm');
 xl = xline(endDate, 'k', 'End of Training Data', 'LineWidth', 2, 'LabelHorizontalAlignment', 'left');
@@ -98,7 +98,7 @@ xlabel('Date'); ylabel('Residuals')
 daysPast = datenum(fluDates(fluDates>endDate) - endDate);
 
 figure;
-plot(daysPast, fitRes(fluDates>endDate), 'b'); hold on;
+plot(daysPast, dhrRes(fluDates>endDate), 'b'); hold on;
 plot(daysPast, sesRes(fluDates>endDate), 'r');
 plot(daysPast, seasonalRes(fluDates>endDate), 'm');
 legend('DHR Residuals', 'Naive Residuals', 'Location', 'southeast');
@@ -107,4 +107,16 @@ set(gca, 'FontWeight', 'Bold', 'FontSize', 12);
 xlabel({'Days Since Start of Extrapolation'; '(1 October 2018)'}); ylabel('Residuals')
 
 
+%% mean squared error for each model
+
+% during period of training data
+naiveMSE = mean((sesRes(fluDates<=endDate)).^2) % 4.4997e+03
+% for seasonal, also exclude first year since model doesn't have any results yet
+seasonalMSE = mean((seasonalRes(fluDates<=endDate & fluDates>fluDates(52))).^2) % 2.7406e+04
+dhrMSE = mean((dhrRes(fluDates<=endDate)).^2) % 1.9546e+03
+
+% MSE just during extrapolation period
+naiveMSE_extrap = mean((sesRes(fluDates>endDate)).^2) % 6.4404e+04
+seasonalMSE_extrap = mean((seasonalRes(fluDates>endDate)).^2) % 8.4528e+03
+dhrMSE_extrap = mean((dhrRes(fluDates>endDate)).^2) % 3.8686e+04
 
